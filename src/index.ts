@@ -26,17 +26,13 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET || ''
 
 
 async function main2() {
-  const [playlist1Url, playlist2Url] = process.argv.slice(2)
-  if (!playlist1Url || !playlist2Url) {
-    console.error('Usage: node dist/index.js <playlist_url_1> <playlist_url_2>')
+  const args = process.argv.slice(2)
+  if (args.length === 0 || args.length > 2) {
+    console.error('Usage: node dist/index.js <playlist_url_1> [playlist_url_2]')
     process.exit(1)
   }
 
   const sdk = SpotifyApi.withClientCredentials(CLIENT_ID, CLIENT_SECRET);
-
-
-  const id1 = getSpotifyIdFromUrl(playlist1Url)
-  const id2 = getSpotifyIdFromUrl(playlist2Url)
 
   // Prepare outputs directory
   const outDir = path.resolve(process.cwd(), 'results')
@@ -60,6 +56,27 @@ async function main2() {
     }
     return undefined
   }
+
+  // Single-argument mode: cache only
+  if (args.length === 1) {
+    const playlistUrl = args[0]
+    const id = getSpotifyIdFromUrl(playlistUrl)
+    const cacheFile = `${id}.json`
+    const cached = readJsonIfExists(cacheFile) as StrippedTrack[] | undefined
+    if (cached && Array.isArray(cached)) {
+      console.log(`Cache exists for ${id} at ${cacheFile}, skipping fetch`)
+      return
+    }
+    const fresh = await getSpotifyPlaylistFull(playlistUrl, sdk)
+    writeJson(cacheFile, fresh)
+    console.log(`Wrote fresh playlist to ${cacheFile}`)
+    return
+  }
+
+  // Two-argument mode: compare with caching
+  const [playlist1Url, playlist2Url] = args
+  const id1 = getSpotifyIdFromUrl(playlist1Url)
+  const id2 = getSpotifyIdFromUrl(playlist2Url)
 
   const loadPlaylist = async (id: string, url: string): Promise<StrippedTrack[]> => {
     const cacheFile = `${id}.json`

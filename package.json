@@ -5,9 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "tsc &&node dist/index.js",
-    "rock": "tsc && node dist/index.js https://open.spotify.com/playlist/3CyMjQnIQ0GuzmC4AeTCam https://open.spotify.com/playlist/28zGBd9aSkHoQqyba2u3PO",
-    "rockTest": "tsc && node dist/index.js https://open.spotify.com/playlist/3CyMjQnIQ0GuzmC4AeTCam https://open.spotify.com/playlist/4PYGaf4wSpzyQ5EOoDxHG9?si=985fa52ba4d04c7e"
+    "start": "tsc && node dist/index.js"
   },
   "dependencies": {
     "@spotify/web-api-ts-sdk": "^1.2.0",

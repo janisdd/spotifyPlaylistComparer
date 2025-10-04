@@ -19,7 +19,12 @@ yarn install
 yarn build
 node dist/index.js <playlist url 1> <playlist url 2>
 # e.g.
-# dist/index.js https://open.spotify.com/playlist/3CyMjQnIQ0GuzmC4AeTCam https://open.spotify.com/playlist/28zGBd9aSkHoQqyba2u3PO
+# dist/index.js https://open.spotify.com/playlist/37i9dQZF1DX0SM0LYsmbMX https://open.spotify.com/playlist/37i9dQZF1DX0SM0LYsmbMY
+
+# can be used to just get a single playlist (cached)
+node dist/index.js <playlist url 1>
+# e.g.
+# dist/index.js https://open.spotify.com/playlist/37i9dQZF1DX0SM0LYsmbMX
 ```
 
 ## Comparison
