@@ -13,6 +13,8 @@ Compares two Spotify Playlists and outputs intersecting tracks
 yarn install
 yarn build
 node dist/index.js <playlist url 1> <playlist url 2>
+# e.g.
+# dist/index.js https://open.spotify.com/playlist/3CyMjQnIQ0GuzmC4AeTCam https://open.spotify.com/playlist/28zGBd9aSkHoQqyba2u3PO
 ```
 
 ## Comparison
